@@ -189,8 +189,8 @@ export const vuePagination = {
     template: `<nav aria-label="Page navigation example" v-if="pagination.total_pages>=0">
     <ul class="pagination">
         <li class="page-item" v-if="pagination.total_pages>1 && pagination.current_page>1" >
-            <a class="page-link" href="#" aria-label="Previous" aria-disabled="true">
-                <span aria-hidden="true" @click.prevent="getData(pagination.current_page*1-1)">&laquo;</span>
+            <a class="page-link" href="#" aria-label="Previous" @click.prevent="getData(pagination.current_page*1-1)">
+                <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
         <li class="page-item disabled" v-else>
@@ -201,8 +201,8 @@ export const vuePagination = {
         <li class="page-item" v-for="page in pagination.pageNum" :class="{'active':pagination.current_page==page}"><a class="page-link" href="#" @click.prevent="getData(page)">{{page}}</a></li>
 
         <li class="page-item"  v-if="pagination.total_pages>1 && pagination.current_page!=pagination.total_pages" >
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true" @click.prevent="getData(pagination.current_page*1+1)">&raquo;</span>
+            <a class="page-link" href="#" aria-label="Next" @click.prevent="getData(pagination.current_page*1+1)">
+                <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
         <li class="page-item disabled" v-else>
