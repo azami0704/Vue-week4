@@ -100,7 +100,7 @@ const app={
             const now=new Date();
             let month=this.addZero(now.getMonth()+1);
             let day=this.addZero(now.getDate());
-            let hour=now.getHours();
+            let hour=this.addZero(now.getHours());
             let minute=this.addZero(now.getMinutes());
             let second=this.addZero(now.getSeconds());
             return `${now.getFullYear()}-${month}-${day} ${hour}:${minute}:${second}`;
