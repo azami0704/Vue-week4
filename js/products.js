@@ -8,7 +8,8 @@ const app={
             templateProduct:{
                 imagesUrl:[]
             },
-            pagination:{}
+            is_uploading:false,
+            pagination:{},
         }
     },
     methods: {
@@ -39,7 +40,6 @@ const app={
         },
         saveProduct(){
             let id=this.templateProduct.id;
-            let data={data:this.templateProduct};
             let url;
             let method;
             if(id){
@@ -51,6 +51,7 @@ const app={
                 url=`/v2/api/${apiPath}/admin/product`;
                 method='post';
             }
+            let data={data:this.templateProduct};
             axios[method](url,data)
             .then(res=>{
                 alert(res.data.message);
@@ -75,10 +76,12 @@ const app={
             this.templateProduct.imagesUrl=[''];
         },
         uploadImg(item){
+            this.is_uploading=!this.is_uploading;
             let form=new FormData();
             form.append('file',item.data)
             axios.post(`/v2/api/${apiPath}/admin/upload`,form)
             .then(res=>{
+                this.is_uploading=!this.is_uploading;
                 if(item.key!==undefined){
                     this.templateProduct.imagesUrl[item.key]=res.data.imageUrl;
                 }else{

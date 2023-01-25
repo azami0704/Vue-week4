@@ -1,21 +1,21 @@
 
 
 export const vueProductModal = {
-    props: ['templateProduct', 'saveProduct', 'createImg'],
-    methods:{
-        uploadPic(...arg){
-            let input=this.$refs.fileInput;
-            let idx=arg[0];
-            if(arg[0]!==undefined){
-                if(input[idx].files[0]){
-                    this.$emit('upload-image',{data:input[idx].files[0],key:idx});
-                }else{
+    props: ['templateProduct', 'saveProduct', 'createImg', 'isUploading'],
+    methods: {
+        uploadPic(...arg) {
+            let input = this.$refs.fileInput;
+            let idx = arg[0];
+            if (arg[0] !== undefined) {
+                if (input[idx].files[0]) {
+                    this.$emit('upload-image', { data: input[idx].files[0], key: idx });
+                } else {
                     alert("請選擇圖片");
                 }
-            }else{
-                if(input.files[0]){
-                    this.$emit('upload-image',{data:input.files[0]});
-                }else{
+            } else {
+                if (input.files[0]) {
+                    this.$emit('upload-image', { data: input.files[0] });
+                } else {
                     alert("請選擇圖片");
                 }
             }
@@ -42,7 +42,8 @@ export const vueProductModal = {
                                 <div class="mb-3">
                                 <form enctype="multipart/form-data" method="post">
                                 <input type="file" class="form-control" ref="fileInput" name="file-to-upload">
-                                <input type="submit" class="mt-3 btn btn-outline-primary btn-sm d-block w-100" @click.prevent="uploadPic()">
+                                <input type="submit" class="mt-3 btn btn-outline-primary btn-sm d-block w-100" @click.prevent="uploadPic()" value="上傳" v-if="!isUploading">
+                                <button type="button" class="mt-3 btn btn-outline-primary btn-sm d-block w-100" disabled v-if="isUploading"><span class="spinner-grow spinner-grow-sm"></span>上傳中</button>
                                 </form> 
                             </div>
                             <img class="img-fluid" :src="templateProduct.imageUrl" :alt="templateProduct.title" v-if="templateProduct.imageUrl">
@@ -57,8 +58,9 @@ export const vueProductModal = {
                             <div class="mb-3">
                                 <form enctype="multipart/form-data" method="post">
                                 <input type="file" class="form-control" ref="fileInput" name="file-to-upload">
-                                <input type="submit" class="mt-3 btn btn-outline-primary btn-sm d-block w-100" @click.prevent="uploadPic(key)">
-                                </form> 
+                                <input type="submit" class="mt-3 btn btn-outline-primary btn-sm d-block w-100" @click.prevent="uploadPic(key)" value="上傳" v-if="!isUploading">
+                                <button type="button" class="mt-3 btn btn-outline-primary btn-sm d-block w-100" disabled v-if="isUploading"><span class="spinner-grow spinner-grow-sm"></span>上傳中</button>
+                                </form>
                             </div>
                             <img class="img-fluid" :src="img" :alt="templateProduct.title" v-if="img">
                         </div>
@@ -85,7 +87,6 @@ export const vueProductModal = {
                             <input id="title" type="text" class="form-control" placeholder="請輸入標題"
                                 v-model="templateProduct.title">
                         </div>
-
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="category" class="form-label">分類</label>
